@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Button, Card, CardBody, Input, Textarea, Chip, Divider, Avatar, Spinner, Form, CardHeader, Code } from "@heroui/react";
+import { Button, Card, CardBody, Input, Textarea, Chip, Divider, Avatar, Spinner, Form, CardHeader, Code, CircularProgress } from "@heroui/react";
 import { FaUpload, FaPlay, FaCheckCircle, FaExclamationTriangle, FaExternalLinkAlt } from "react-icons/fa";
 
 type ApiOk = { monto?: string | number; file?: string; [k: string]: any };
@@ -91,7 +91,7 @@ export default function Page() {
           <Card className=" border border-slate-800 py-4">
             <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
               <p className="text-xl font-bold">Probar</p>
-              <small>Comprobantes Admitidos actualmente: BBVA</small>
+              <small>Comprobantes admitidos actualmente: BBVA</small>
             </CardHeader>
             <CardBody className="overflow-visible py-2 px-4 flex items-center justify-center">
               <Form onSubmit={onSubmit} className="flex flex-col items-center justify-center gap-4 w-full">
@@ -130,15 +130,17 @@ export default function Page() {
           </Card>
 
           {/* Panel de resultado */}
-          <Card className="border border-slate-800">
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+          <Card className="border border-slate-800 p-2">
+            <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
               <p className="text-xl font-bold">Resultado</p>
             </CardHeader>
             <CardBody className="pb-0 pt-2 px-4 flex-col items-center justify-center">
 
 
               <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-5">
-                {ok ? (
+                {loading ? (
+                  <CircularProgress label="Loading..." />
+                ): ok ? (
                   <div className="space-y-3">
                     <div className="text-5xl font-extrabold tracking-tight text-emerald-400">
                       {montoDisplay ?? "—"}
@@ -187,7 +189,7 @@ export default function Page() {
       <section className="mx-auto max-w-6xl px-4 pb-12">
         <Card className="bg-slate-900/60 border border-slate-800">
           <CardBody className="space-y-2">
-            <h3 className="text-lg font-semibold">¿Necesitas tu clave?</h3>
+            <h3 className="text-lg font-semibold">¿Necesitas implementarlo?</h3>
             <p className="text-slate-300">
               Puedes solicitar tu propia clave escribiendo a nuestro equipo de ventas:
               {" "}
