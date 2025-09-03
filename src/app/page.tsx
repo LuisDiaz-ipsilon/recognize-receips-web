@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Button, Card, CardBody, Input, Textarea, Chip, Divider, Avatar, Spinner } from "@heroui/react";
+import { Button, Card, CardBody, Input, Textarea, Chip, Divider, Avatar, Spinner, Form, CardHeader, Code } from "@heroui/react";
 import { FaUpload, FaPlay, FaCheckCircle, FaExclamationTriangle, FaExternalLinkAlt } from "react-icons/fa";
 
 type ApiOk = { monto?: string | number; file?: string; [k: string]: any };
@@ -69,14 +69,14 @@ export default function Page() {
           <div className="flex items-center gap-3">
             {/* Logo rectangular (coloca tu archivo en /public/logo-rectangle.png o usa el placeholder) */}
             <img
-              src="/recognize-receipts/logo-white.png"
+              src="/recognize-receipts/logo-white.svg"
               alt="Logo"
               className="h-10 w-auto rounded"
             />
             <span className="text-sm text-slate-300">Process Receipt API</span>
           </div>
           <nav className="hidden items-center gap-4 sm:flex">
-            <a href="#run" className="text-sm text-slate-300 hover:text-white">Ejecutar</a>
+            <a href="#run" className="text-sm text-slate-300 hover:text-white">Probar</a>
             <a href="#info" className="text-sm text-slate-300 hover:text-white">Info</a>
             <a href="#docs" className="text-sm text-slate-300 hover:text-white">Docs</a>
             <a href="#contribuidor" className="text-sm text-slate-300 hover:text-white">Contribuidor</a>
@@ -86,27 +86,23 @@ export default function Page() {
 
       {/* SECTION 1: FORM + RESULT */}
       <section id="run" className="mx-auto max-w-6xl px-4 py-10">
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           {/* Formulario */}
-          <Card className="bg-slate-900/60 border border-slate-800">
-            <CardBody className="space-y-5">
-              <div>
-                <h2 className="text-xl font-semibold">Ejecutar servicio</h2>
-                <p className="text-sm text-slate-400">
-                  Rellena el <b>ID Cliente</b> (<code>idclient</code>), selecciona una imagen y presiona <b>Run</b>.
-                </p>
-              </div>
-
-              <form onSubmit={onSubmit} className="grid gap-4">
+          <Card className=" border border-slate-800 py-4">
+            <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+              <p className="text-xl font-bold">Probar</p>
+              <small>Comprobantes Admitidos actualmente: BBVA</small>
+            </CardHeader>
+            <CardBody className="overflow-visible py-2 px-4 flex items-center justify-center">
+              <Form onSubmit={onSubmit} className="flex flex-col items-center justify-center gap-4 w-full">
                 <Input
-                  label="ID Cliente (idclient)"
+                  label="Clave"
                   placeholder="100GRATISDIARIOS"
                   value=''
                   onValueChange={setIdclient}
-                  variant="bordered"
                 />
 
-                <div className="grid gap-2">
+                <div className="">
                   <input
                     ref={fileRef}
                     type="file"
@@ -114,42 +110,32 @@ export default function Page() {
                     className="hidden"
                     onChange={(e) => setFileName(e.target.files?.[0]?.name || "")}
                   />
-                  <Button variant="flat" onPress={pickFile} startContent={<FaUpload />}>
-                    {fileName ? `Imagen: ${fileName}` : "Elegir imagen"}
+                  <Button 
+                    className="bg-sky-400 text-black font-bold hover:bg-sky-100"
+                    variant="solid" onPress={pickFile} startContent={<FaUpload />}>
+                    {fileName ? `Imagen: ${fileName}` : "Selecciona Comprobante"}
                   </Button>
                 </div>
 
                 <Button
+                  className="bg-sky-200 text-black font-bold hover:bg-sky-100"
                   type="submit"
-                  color="success"
-                  className="font-semibold"
                   startContent={loading ? <Spinner size="sm" /> : <FaPlay />}
                   isDisabled={loading}
                 >
                   {loading ? "Procesando..." : "Run"}
                 </Button>
-              </form>
-
+              </Form>
             </CardBody>
           </Card>
 
           {/* Panel de resultado */}
-          <Card className="bg-slate-900/60 border border-slate-800">
-            <CardBody className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-medium">Resultado</h3>
-                {ok && (
-                  <Chip color="success" variant="flat" startContent={<FaCheckCircle />}>
-                    OK
-                  </Chip>
-                )}
-                {err && (
-                  <Chip color="danger" variant="flat" startContent={<FaExclamationTriangle />}>
-                    Error
-                  </Chip>
-                )}
-                {!ok && !err && <Chip variant="flat">Pendiente</Chip>}
-              </div>
+          <Card className="border border-slate-800">
+          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+              <p className="text-xl font-bold">Resultado</p>
+            </CardHeader>
+            <CardBody className="pb-0 pt-2 px-4 flex-col items-center justify-center">
+
 
               <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-5">
                 {ok ? (
@@ -160,31 +146,25 @@ export default function Page() {
                     <p className="text-sm text-slate-400">
                       {ok.file ? <>Archivo: <code className="text-slate-300">{ok.file}</code></> : "Sin archivo en la respuesta."}
                     </p>
-                    <Textarea
-                      readOnly
-                      minRows={8}
-                      className="font-mono"
-                      value={JSON.stringify(ok, null, 2)}
-                    />
+                    <div className="h-px bg-slate-700" />
+                    <Code>
+                      {JSON.stringify(ok, null, 2)}
+                    </Code>
                   </div>
                 ) : err ? (
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 text-red-300">
-                      <FaExclamationTriangle />
                       <span className="font-semibold">Ocurrió un error</span>
                     </div>
                     <div className="text-2xl font-bold text-red-400">
                       {"Error"}
                     </div>
-                    <Textarea
-                      readOnly
-                      minRows={8}
-                      className="font-mono"
-                      value={JSON.stringify(err, null, 2)}
-                    />
+                    <Code>
+                      {JSON.stringify(err, null, 2)}
+                    </Code>
                   </div>
                 ) : (
-                  <div className="text-slate-400">Ejecuta el servicio para ver el resultado aquí.</div>
+                  <div className="text-slate-400">{'{ ... }'}</div>
                 )}
               </div>
             </CardBody>
@@ -196,11 +176,10 @@ export default function Page() {
 
       {/* SECTION 2: INFO */}
       <section id="info" className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="mb-2 text-xl font-semibold">¿De qué trata esta API?</h2>
+        <h2 className="mb-2 text-xl font-semibold">Resume</h2>
         <p className="max-w-3xl text-slate-300">
-          La API <b>Process Receipt</b> recibe una imagen de un recibo en Base64 y devuelve datos útiles como el
-          <b> monto detectado</b> y metadatos del archivo procesado. Es ideal para flujos de conciliación, validación y
-          automatización de registros de pago.
+          La API <b>Process Receipt</b> recibe una imagen de un comprobante de transferencia bancario en Base64 y devuelve el
+          <b> monto detectado</b>.<br/> Ideal para flujos de validación y automatización de registros de pago.
         </p>
       </section>
 
@@ -208,12 +187,12 @@ export default function Page() {
       <section className="mx-auto max-w-6xl px-4 pb-12">
         <Card className="bg-slate-900/60 border border-slate-800">
           <CardBody className="space-y-2">
-            <h3 className="text-lg font-semibold">¿Necesitas tu <code>idclient</code>?</h3>
+            <h3 className="text-lg font-semibold">¿Necesitas tu clave?</h3>
             <p className="text-slate-300">
-              Puedes solicitar tu propio ID de cliente escribiendo a nuestro equipo de ventas:
+              Puedes solicitar tu propia clave escribiendo a nuestro equipo de ventas:
               {" "}
-              <a className="underline hover:text-white" href="mailto:ventas@araka.example">
-                ventas@araka.example
+              <a className="underline hover:text-white" href="mailto:ventas@softwarefabrik.com">
+                ventas@softwarefabrick.ls
               </a>
               .
             </p>
@@ -223,62 +202,65 @@ export default function Page() {
 
       <Divider className="mx-auto max-w-6xl border-slate-800" />
 
-      {/* SECTION 4: Mini-Docs */}
+      {/* SECTION 4: Docs */}
       <section id="docs" className="mx-auto max-w-6xl px-4 py-12 space-y-6">
         <div>
-          <h2 className="mb-2 text-xl font-semibold">Mini-documentación</h2>
+          <h2 className="mb-2 text-xl font-semibold">Documentación</h2>
           <p className="text-slate-300">
             Endpoint de producción:{" "}
             <a
               className="inline-flex items-center gap-2 underline hover:text-white"
-              href="https://araka.com/api/process-receipt"
+              href="x/api/process-receipt"
               target="_blank"
               rel="noreferrer"
             >
-              araka.com/api/process-receipt <FaExternalLinkAlt className="inline" />
+              x.com/api/process-receipt <FaExternalLinkAlt className="inline" />
             </a>
           </p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          <Card className="bg-slate-900/60 border border-slate-800">
+          <Card className=" border border-slate-800">
             <CardBody className="space-y-3">
-              <h3 className="font-semibold">Body de petición (JSON)</h3>
-              <Textarea
-                readOnly
-                minRows={8}
-                className="font-mono"
-                value={`{
-  "idclient": "0b3708ff-fe8a-4b66-9342-dbd747f2ef4a",
-  "imageBase64": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wC..."
-}`}
-              />
+              <h3 className="font-semibold">Request Body</h3>
+              <Code className="whitespace-pre">
+                {JSON.stringify(
+                  {
+                    idclient: "0b3708ff-fe8a-4b66-9342-dbd747f2ef4a",
+                    imageBase64: "/9j/4AAQSkZJRgABAQAAAQABAAD/2wC..."
+                  },
+                  null,
+                  2
+                )}
+              </Code>
             </CardBody>
           </Card>
 
-          <Card className="bg-slate-900/60 border border-slate-800">
+          <Card className="border border-slate-800">
             <CardBody className="space-y-3">
-              <h3 className="font-semibold">Respuesta de ejemplo (OK)</h3>
-              <Textarea
-                readOnly
-                minRows={8}
-                className="font-mono"
-                value={`{
-  "monto": "526.00",
-  "file": "0b3708ff-fe8a-4b66-9342-dbd747f2ef4a_20250829032749.jpg"
-}`}
-              />
+              <h3 className="font-semibold">Respuesta (OK)</h3>
+              <Code className="whitespace-pre">
+                {JSON.stringify(
+                  {
+                    monto: "526.00",
+                    file: "0b3708ff-fe8a-4b66-9342-dbd747f2ef4a_20250829032749.jpg"
+                  },
+                  null,
+                  2
+                )}
+              </Code>
               <h3 className="pt-3 font-semibold">Respuesta de ejemplo (Error 400)</h3>
-              <Textarea
-                readOnly
-                minRows={5}
-                className="font-mono"
-                value={`{
-  "message": "La imagen ya fue procesada antes.",
-  "error": "Bad Request",
-  "statusCode": 400
-}`}
-              />
+              <Code className="whitespace-pre">
+                {JSON.stringify(
+                  {
+                    message: "La imagen ya fue procesada antes.",
+                    error: "Bad Request",
+                    "statusCode": 400
+                  },
+                  null,
+                  2
+                )}
+              </Code>              
             </CardBody>
           </Card>
         </div>
@@ -287,19 +269,16 @@ export default function Page() {
       {/* SECTION 5: Contribuidor */}
       <section id="contribuidor" className="px-4 py-12">
         <div className="mx-auto flex max-w-6xl items-center justify-center">
-          <Card className="w-full max-w-md bg-slate-900/60 border border-slate-800">
+          <Card className="w-full max-w-md bg-slate-900/60 border border-slate-800"
+            onClick={() => window.open("https://github.com/LuisDiaz-ipsilon", "_blank")}>
             <CardBody className="flex flex-col items-center gap-4 py-8">
-              <Avatar
-                className="h-28 w-28"
-                radius="full"
-                src="/contributor.jpg"
-                onError={() => {
-                  setAvatarSrc("https://placehold.co/256x256");
-                }}
+              <img
+                src="https://avatars.githubusercontent.com/u/54384617?v=4"
+                className="w-24 h-24 rounded-full object-cover"
               />
               <div className="text-center">
-                <h3 className="text-xl font-bold">Luis Díaz</h3>
-                <p className="text-slate-400">Contribuidor / Maintainer</p>
+                <h3 className="text-xl font-bold">Luis Diaz</h3>
+                <p className="text-slate-400">Developer</p>
               </div>
             </CardBody>
           </Card>
@@ -309,8 +288,13 @@ export default function Page() {
       {/* FOOTER */}
       <footer className="border-t border-slate-800">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 sm:flex-row">
-          <p className="text-xs text-slate-400">© {new Date().getFullYear()} Araka. Todos los derechos reservados.</p>
+          <p className="text-xs text-slate-400">© {new Date().getFullYear()} softwarefabrik. Todos los derechos reservados.</p>
           <div className="flex items-center gap-4 text-xs text-slate-400">
+            <img
+              src="/recognize-receipts/logo-white.svg"
+              alt="Logo"
+              className="h-10 w-auto rounded"
+            />
             <a href="#info" className="hover:text-white">Acerca de</a>
             <a href="#docs" className="hover:text-white">Documentación</a>
             <a href="#contribuidor" className="hover:text-white">Contribuidor</a>
