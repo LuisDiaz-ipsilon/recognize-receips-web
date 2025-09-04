@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Button, Card, CardBody, Input, Textarea, Chip, Divider, Avatar, Spinner, Form, CardHeader, Code, CircularProgress } from "@heroui/react";
-import { FaUpload, FaPlay, FaCheckCircle, FaExclamationTriangle, FaExternalLinkAlt } from "react-icons/fa";
+import { Button, Card, CardBody, Input, Divider, Spinner, Form, CardHeader, Code, CircularProgress } from "@heroui/react";
+import { FaUpload, FaPlay, FaExternalLinkAlt } from "react-icons/fa";
 
 type ApiOk = { monto?: string | number; file?: string; [k: string]: any };
 type ApiErr = { message?: string; error?: string; statusCode?: number; [k: string]: any };
@@ -14,7 +14,6 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [ok, setOk] = useState<ApiOk | null>(null);
   const [err, setErr] = useState<ApiErr | null>(null);
-  const [avatarSrc, setAvatarSrc] = useState("/contributor.jpg");
 
   const pickFile = () => fileRef.current?.click();
 
