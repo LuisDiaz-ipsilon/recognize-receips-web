@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { Button, Card, CardBody, Input, Divider, Spinner, Form, CardHeader, Code, CircularProgress } from "@heroui/react";
 import { FaUpload, FaPlay, FaExternalLinkAlt } from "react-icons/fa";
+import { Link } from "@heroui/link";
 
 type ApiOk = { monto?: string | number; file?: string; [k: string]: any };
 type ApiErr = { message?: string; error?: string; statusCode?: number; [k: string]: any };
@@ -67,11 +68,13 @@ export default function Page() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             {/* Logo rectangular (coloca tu archivo en /public/logo-rectangle.png o usa el placeholder) */}
-            <img
-              src="/recognize-receipts/logo-white.svg"
-              alt="Logo"
-              className="h-10 w-auto rounded"
-            />
+            <Link href="https://recognize-receips-web.vercel.app">
+              <img
+                src="/recognize-receipts/logo-white.svg"
+                alt="Logo"
+                className="h-10 w-auto rounded"
+              />
+            </Link>
             <span className="text-sm text-slate-300">Process Receipt API</span>
           </div>
           <nav className="hidden items-center gap-4 sm:flex">
@@ -291,11 +294,13 @@ export default function Page() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 sm:flex-row">
           <p className="text-xs text-slate-400">© {new Date().getFullYear()} softwarefabrik. Todos los derechos reservados.</p>
           <div className="flex items-center gap-4 text-xs text-slate-400">
+          <Link href="https://recognize-receips-web.vercel.app">
             <img
               src="/recognize-receipts/logo-white.svg"
               alt="Logo"
               className="h-10 w-auto rounded"
             />
+          </Link>
             <a href="#info" className="hover:text-white">Acerca de</a>
             <a href="#docs" className="hover:text-white">Documentación</a>
             <a href="#contribuidor" className="hover:text-white">Contribuidor</a>
