@@ -68,7 +68,7 @@ export default function Page() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             {/* Logo rectangular (coloca tu archivo en /public/logo-rectangle.png o usa el placeholder) */}
-            <Link href="https://recognize-receips-web.vercel.app">
+            <Link href="https://softwarefabrik.com.mx/">
               <img
                 src="/logo-white.svg"
                 alt="Logo"
@@ -294,7 +294,7 @@ export default function Page() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 sm:flex-row">
           <p className="text-xs text-slate-400">© {new Date().getFullYear()} softwarefabrik. Todos los derechos reservados.</p>
           <div className="flex items-center gap-4 text-xs text-slate-400">
-          <Link href="https://recognize-receips-web.vercel.app">
+          <Link href="https://softwarefabrik.com.mx/">
             <img
               src="/logo-white.svg"
               alt="Logo"
