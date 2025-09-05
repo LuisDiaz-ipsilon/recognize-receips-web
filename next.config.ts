@@ -1,8 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'standalone',
-  basePath: '/recognize-receipts',
-  assetPrefix: '/recognize-receipts/',
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
