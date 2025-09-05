@@ -70,7 +70,7 @@ export default function Page() {
             {/* Logo rectangular (coloca tu archivo en /public/logo-rectangle.png o usa el placeholder) */}
             <Link href="https://recognize-receips-web.vercel.app">
               <img
-                src="/recognize-receipts/logo-white.svg"
+                src="/logo-white.svg"
                 alt="Logo"
                 className="h-10 w-auto rounded"
               />
@@ -296,7 +296,7 @@ export default function Page() {
           <div className="flex items-center gap-4 text-xs text-slate-400">
           <Link href="https://recognize-receips-web.vercel.app">
             <img
-              src="/recognize-receipts/logo-white.svg"
+              src="/logo-white.svg"
               alt="Logo"
               className="h-10 w-auto rounded"
             />
