@@ -35,7 +35,7 @@ export default function Page() {
       form.append("image", file);
       form.append("idclient", idclient);
 
-      const res = await fetch("/recognize-receipts/api/run", { method: "POST", body: form });
+      const res = await fetch("/api/recognize", { method: "POST", body: form });
 
       const contentType = res.headers.get("content-type") || "";
       const data = contentType.includes("application/json")

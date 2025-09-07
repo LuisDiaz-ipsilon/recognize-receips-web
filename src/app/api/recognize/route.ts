@@ -8,6 +8,7 @@ function j(status: number, data: unknown) {
 }
 
 export async function POST(req: Request) {
+  console.log('aqui')
   try {
     const form = await req.formData();
     const file = form.get("image") as File | null;
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
 
     const headers: Record<string, string> = { "Content-Type": "application/json" };
 
-    const res = await fetch(routeBackEnd, {
+    const res = await fetch(routeBackEnd+'/process', {
       method: "POST",
       headers,
       body: JSON.stringify(payload),
