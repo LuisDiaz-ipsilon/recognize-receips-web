@@ -23,7 +23,7 @@ export default function Page() {
     setOk(null);
     setErr(null);
   
-    const WARN_MSG = "No se pudo reconocer la imagen.";
+    const WARN_MSG = "No se reconocio el monto del comprobante ó ya fue procesado antes.";
   
     const file = fileRef.current?.files?.[0];
     if (!file) {
