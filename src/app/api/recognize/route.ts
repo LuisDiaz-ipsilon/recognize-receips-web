@@ -8,7 +8,6 @@ function j(status: number, data: unknown) {
 }
 
 export async function POST(req: Request) {
-  console.log('aqui')
   try {
     const form = await req.formData();
     const file = form.get("image") as File | null;

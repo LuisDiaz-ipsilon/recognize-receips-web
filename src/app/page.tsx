@@ -22,35 +22,38 @@ export default function Page() {
     e.preventDefault();
     setOk(null);
     setErr(null);
-
+  
+    const WARN_MSG = "No se pudo reconocer la imagen.";
+  
     const file = fileRef.current?.files?.[0];
     if (!file) {
-      setErr({ message: "Selecciona una imagen" });
+      setErr({ message: WARN_MSG });
       return;
     }
-
+  
     setLoading(true);
     try {
       const form = new FormData();
       form.append("image", file);
       form.append("idclient", idclient);
-
+  
       const res = await fetch("/api/recognize", { method: "POST", body: form });
-
+  
+      if (!res.ok) {
+        setErr({ message: WARN_MSG });
+        setOk(null);
+        return;
+      }
+  
       const contentType = res.headers.get("content-type") || "";
       const data = contentType.includes("application/json")
         ? await res.json()
         : { message: await res.text() };
-
-      if (!res.ok) {
-        setErr(data);
-        setOk(null);
-      } else {
-        setOk(data);
-        setErr(null);
-      }
-    } catch (e: any) {
-      setErr({ message: e?.message || "Error desconocido" });
+  
+      setOk(data);
+      setErr(null);
+    } catch {
+      setErr({ message: WARN_MSG });
     } finally {
       setLoading(false);
     }
@@ -157,15 +160,9 @@ export default function Page() {
                   </div>
                 ) : err ? (
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-red-300">
-                      <span className="font-semibold">Ocurrió un error</span>
+                    <div className="rounded-md border border-yellow-500/60 bg-yellow-300/10 px-4 py-3 text-yellow-300 font-semibold">
+                      No se pudo reconocer la imagen.
                     </div>
-                    <div className="text-2xl font-bold text-red-400">
-                      {"Error"}
-                    </div>
-                    <Code>
-                      {JSON.stringify(err, null, 2)}
-                    </Code>
                   </div>
                 ) : (
                   <div className="text-slate-400">{'{ ... }'}</div>
