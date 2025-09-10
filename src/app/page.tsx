@@ -190,12 +190,11 @@ export default function Page() {
           <CardBody className="space-y-2">
             <h3 className="text-lg font-semibold">¿Necesitas implementarlo?</h3>
             <p className="text-slate-300">
-              Puedes solicitar tu propia clave escribiendo a nuestro equipo de ventas:
+              Puedes solicitar tu propia clave escribiendo a nuestro equipo de ventas.
               {" "}
               <a className="underline hover:text-white" href="mailto:ventas@softwarefabrik.com">
-                ventas@softwarefabrick.ls
+                WhatsApp 8127278053.
               </a>
-              .
             </p>
           </CardBody>
         </Card>
