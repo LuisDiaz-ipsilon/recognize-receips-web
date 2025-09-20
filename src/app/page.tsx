@@ -212,8 +212,8 @@ export default function Page() {
             <p className="text-slate-300">
               Puedes solicitar tu propia clave escribiendo a nuestro equipo de ventas.
               {" "}
-              <a className="underline hover:text-white" href="mailto:ventas@softwarefabrik.com">
-                WhatsApp 8127278053.
+              <a className="underline hover:text-white" href="https://wa.me/528127278053">
+                WhatsApp +52 81 2727 8053
               </a>
             </p>
           </CardBody>
@@ -230,11 +230,11 @@ export default function Page() {
             Endpoint de producción:{" "}
             <a
               className="inline-flex items-center gap-2 underline hover:text-white"
-              href="x/api/process-receipt"
+              href="https://services.softwarefabrik.com.mx/recognize-receipts/api/process"
               target="_blank"
               rel="noreferrer"
             >
-              x.com/api/process-receipt <FaExternalLinkAlt className="inline" />
+              https://services.softwarefabrik.com.mx/recognize-receipts/api/process <FaExternalLinkAlt className="inline" />
             </a>
           </p>
         </div>
