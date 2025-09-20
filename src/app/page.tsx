@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Button, Card, CardBody, Input, Divider, Spinner, Form, CardHeader, Code, CircularProgress } from "@heroui/react";
+import { Button, Card, CardBody, Input, Divider, Spinner, Form, CardHeader, Code, CircularProgress, Image } from "@heroui/react";
 import { FaUpload, FaPlay, FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "@heroui/link";
 
@@ -63,6 +63,13 @@ export default function Page() {
     ok?.monto !== undefined && ok?.monto !== null
       ? `$ ${String(ok.monto)}`
       : null;
+
+  const examplesReceipts = [
+    { src: "/examples-receipts/ex1.png", alt: "u" },
+    { src: "/examples-receipts/ex2.png", alt: "n" },
+    { src: "/examples-receipts/ex3.png", alt: "i" },
+    { src: "/examples-receipts/ex4.png", alt: "q" }
+  ];
 
   return (
     <div className="min-h-dvh bg-gradient-to-br from-[#0b1020] via-[#0f172a] to-[#0a1f45] text-white">
@@ -177,11 +184,24 @@ export default function Page() {
 
       {/* SECTION 2: INFO */}
       <section id="info" className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="mb-2 text-xl font-semibold">Resume</h2>
+        <h2 className="mb-2 text-xl font-semibold">Resumen</h2>
         <p className="max-w-3xl text-slate-300">
           La API <b>Process Receipt</b> recibe una imagen de un comprobante de transferencia bancario en Base64 y devuelve el
           <b> monto detectado</b>.<br/> Ideal para flujos de validación y automatización de registros de pago.
         </p>
+        <br />
+        <h2 className="text-xl font-semibold mb-2">Comprobantes aceptados:</h2>
+        <div className="flex gap-6">
+          {examplesReceipts.map((ex, idx) => (
+            <Image
+              key={idx}
+              isZoomed
+              alt={ex.alt}
+              src={ex.src}
+              width={120}
+            />
+          ))}
+        </div>
       </section>
 
       {/* SECTION 3: Obtener ID Cliente */}
@@ -270,7 +290,8 @@ export default function Page() {
       <section id="contribuidor" className="px-4 py-12">
         <div className="mx-auto flex max-w-6xl items-center justify-center">
           <Card className="w-full max-w-md bg-slate-900/60 border border-slate-800"
-            onClick={() => window.open("https://github.com/LuisDiaz-ipsilon", "_blank")}>
+            isPressable
+            onPress={() => window.open("https://github.com/LuisDiaz-ipsilon", "_blank")}>
             <CardBody className="flex flex-col items-center gap-4 py-8">
               <img
                 src="https://avatars.githubusercontent.com/u/54384617?v=4"
